@@ -35,8 +35,11 @@ function buildMetadata(sample) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
     // Filter the data for the object with the desired sample number
-    var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+    var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
+    var metadataArray = data.metadata.filter(sampleObj => sampleObj.id == sample);
     var result = resultArray[0];
+    var metadata = metadataArray[0];
+
     // Use d3 to select the panel with id of `#sample-metadata`
     var PANEL = d3.select("#sample-metadata");
 
@@ -69,12 +72,12 @@ function buildCharts(sample) {
     PANEL.append("h6").text(result.location);
   });
 
-  function optionChanged(newSample) {
-    console.log(newSample);
-  }
-  function optionChanged(newSample) {
-    buildCharts(newSample);
-  }
+  //function optionChanged(newSample) {
+    //console.log(newSample);
+  //}
+  //function optionChanged(newSample) {
+    //buildCharts(newSample);
+  //}
 
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
     var otu_Ids = data.samples[result].otu_ids;
@@ -96,6 +99,7 @@ function buildCharts(sample) {
     var trace = { 
         x: top_sample_Values,
         y: top_otu_Ids,
+        text: [top_otu_Labels]
         type: bar,
         orientation: 'h'
 
@@ -108,5 +112,23 @@ function buildCharts(sample) {
     };
     // 10. Use Plotly to plot the data with the layout. 
     Plotly.newPlot(barData, layout);
+    
+    // DELIVERABLE 2//
+    // 1. Create the trace for the bubble chart.
+    var trace = { 
+      x: top_sample_Values,
+      y: top_otu_Ids,
+      type: bar,
+      orientation: 'h'
+    }
+    var bubbleData = [trace]; 
+
+    // 2. Create the layout for the bubble chart.
+    var bubbleLayout = {
+      
+    };
+
+    // 3. Use Plotly to plot the data with the layout.
+    Plotly.newPlot();
   });
 }
