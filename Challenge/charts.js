@@ -114,10 +114,13 @@ function buildCharts(sample) {
 
     // 9. Create the layout for the bar chart. 
     var barLayout = {
-        title: "Top 10 Bacteria Cultures Found"
+        title: "Top 10 Bacteria Cultures Found",
+        xaxis: {title: " " },
+        yaxis: {title: " "},
     };
-    // 10. Use Plotly to plot the data with the layout. 
-    Plotly.newPlot("bar",barData, layout);
+  
+  // 10. Use Plotly to plot the data with the layout. 
+  Plotly.newPlot("bar",barData, barLayout);
     
     // DELIVERABLE 2//
     // 1. Create the trace for the bubble chart.
