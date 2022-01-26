@@ -35,11 +35,9 @@ function buildMetadata(sample) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
     // Filter the data for the object with the desired sample number
-    var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
-    var metadataArray = data.metadata.filter(sampleObj => sampleObj.id == sample);
+    var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
     var result = resultArray[0];
-    var metadata = metadataArray[0];
-
+   
     // Use d3 to select the panel with id of `#sample-metadata`
     var PANEL = d3.select("#sample-metadata");
 
@@ -60,12 +58,27 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
   // 2. Use d3.json to load and retrieve the samples.json file 
   d3.json("samples.json").then((data) => {
-    // 3. Create a variable that holds the samples array. 
-    var sampleData = data.samples;
-    // 4. Create a variable that filters the samples for the object with the desired sample number.
-    // 5. Create a variable that holds the first sample in the array.
+    console.log(data);
+    // Create a variable that holds the samples array. 
+    var samples = data.samples;
+    // console.log(samples); 
+    // Create a variable that filters the samples for the object with the desired sample number.
     var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
-    var result = resultArray[0];
+    // Create a variable that filters the metadata array for the object with the desired sample number.
+    var metadataArray = data.metadata.filter(sampleObj => sampleObj.id == sample);
+    // Create a variable that holds the first sample in the array.
+    //var result = resultArray[0];
+    // Create a variable that holds the first sample in the metadata array.
+    //var metadata = metadataArray[0];
+
+    // Create variables that hold the otu_ids, otu_labels, and sample_values.
+    var otu_ids = result.otu_ids;
+    var otu_labels = result.otu_labels;
+    var sample_values = result.sample_values;
+
+    // Create a variable that holds the washing frequency.
+    var frequency = parseFloat(metadata.wfreq);
+
     var PANEL = d3.select("#sample-samples");
   
     PANEL.html("");
@@ -99,7 +112,7 @@ function buildCharts(sample) {
     var trace = { 
         x: top_sample_Values,
         y: top_otu_Ids,
-        text: [top_otu_Labels]
+        text: [otu_Labels]
         type: bar,
         orientation: 'h'
 
