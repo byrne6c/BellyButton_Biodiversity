@@ -67,9 +67,9 @@ function buildCharts(sample) {
     // Create a variable that filters the metadata array for the object with the desired sample number.
     var metadataArray = data.metadata.filter(sampleObj => sampleObj.id == sample);
     // Create a variable that holds the first sample in the array.
-    //var result = resultArray[0];
+    var result = resultArray[0];
     // Create a variable that holds the first sample in the metadata array.
-    //var metadata = metadataArray[0];
+      var metadata = metadataArray[0];
 
     // Create variables that hold the otu_ids, otu_labels, and sample_values.
     var otu_ids = result.otu_ids;
@@ -79,11 +79,11 @@ function buildCharts(sample) {
     // Create a variable that holds the washing frequency.
     var frequency = parseFloat(metadata.wfreq);
 
-    var PANEL = d3.select("#sample-samples");
+    //var PANEL = d3.select("#sample-samples");
   
-    PANEL.html("");
-    PANEL.append("h6").text(result.location);
-  });
+    //PANEL.html("");
+    //PANEL.append("h6").text(result.location);
+    //});
 
   //function optionChanged(newSample) {
     //console.log(newSample);
@@ -92,17 +92,12 @@ function buildCharts(sample) {
     //buildCharts(newSample);
   //}
 
-    // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
-    var otu_Ids = data.samples[result].otu_ids;
-    var otu_Labels = data.samples[result].otu_labels;
-    var sample_Values = data.samples[result].sample_values;
-
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
-    top_otu_Ids = otu_Ids.slice(0,10);
-    top_otu_Ids = otu_Ids.map(s => `OTU ${s}`).reverse();
-    top_otu_Labels = otu_Labels.slice(0,10);
-    top_sample_Values = sample_Values.slice(0,10);
+    top_otu_Ids = otu_ids.slice(0,10);
+    top_otu_Ids = otu_ids.map(s => `OTU ${s}`).reverse();
+    top_otu_Labels = otu_labels.slice(0,10);
+    top_sample_Values = sample_values.slice(0,10);
 
     // 7. Create the yticks for the bar chart.
 
@@ -110,9 +105,9 @@ function buildCharts(sample) {
 
     // 8. Create the trace for the bar chart. 
     var trace = { 
-        x: top_sample_Values,
-        y: top_otu_Ids,
-        text: [otu_Labels]
+        x: sample_values,
+        y: otu_ids,
+        text: [otu_labels]
         type: bar,
         orientation: 'h'
 
@@ -129,8 +124,8 @@ function buildCharts(sample) {
     // DELIVERABLE 2//
     // 1. Create the trace for the bubble chart.
     var trace = { 
-      x: top_sample_Values,
-      y: top_otu_Ids,
+      x: otu_ids,
+      y: sample_values,
       type: bar,
       orientation: 'h'
     }
