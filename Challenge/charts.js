@@ -85,12 +85,12 @@ function buildCharts(sample) {
     //PANEL.append("h6").text(result.location);
     //});
 
-  //function optionChanged(newSample) {
+    //function optionChanged(newSample) {
     //console.log(newSample);
-  //}
-  //function optionChanged(newSample) {
+    //}
+    //function optionChanged(newSample) {
     //buildCharts(newSample);
-  //}
+    //}
 
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
@@ -100,43 +100,42 @@ function buildCharts(sample) {
     top_sample_Values = sample_values.slice(0,10);
 
     // 7. Create the yticks for the bar chart.
-
-    var yticks = top_otu_Ids;
-
+    var yticks = otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse();
     // 8. Create the trace for the bar chart. 
-    var trace = { 
-        x: sample_values,
-        y: otu_ids,
-        text: [otu_labels]
-        type: bar,
-        orientation: 'h'
-
-    }
-    var barData = [trace];
+    var barData = [
+      {
+        y: yticks,
+        x: sample_values.slice(0, 10).reverse(),
+        text: otu_labels.slice(0, 10).reverse(),
+        type: "bar",
+        orientation: "h",
+      }
+    ];
 
     // 9. Create the layout for the bar chart. 
     var barLayout = {
         title: "Top 10 Bacteria Cultures Found"
     };
     // 10. Use Plotly to plot the data with the layout. 
-    Plotly.newPlot(barData, layout);
+    Plotly.newPlot("bar",barData, layout);
     
     // DELIVERABLE 2//
     // 1. Create the trace for the bubble chart.
-    var trace = { 
-      x: otu_ids,
-      y: sample_values,
-      type: bar,
-      orientation: 'h'
-    }
-    var bubbleData = [trace]; 
+    //var trace = { 
+      //x: otu_ids,
+      //y: sample_values,
+      //text: [otu_labels],
+      //type: bar,
+      //orientation: 'h'
+    //}
+    //var bubbleData = [trace]; 
 
     // 2. Create the layout for the bubble chart.
-    var bubbleLayout = {
+    //var bubbleLayout = {
       
-    };
+    //};
 
     // 3. Use Plotly to plot the data with the layout.
-    Plotly.newPlot();
+    //Plotly.newPlot();
   });
 }
